@@ -1,9 +1,19 @@
+/*
+ * @Date: 1985-10-26 16:15:00
+ * @LastEditors: 
+ * @LastEditTime: 2019-09-02 20:41:41
+ * @Author: wengui.zhang@hand-china.com
+ * @Version: 0.0.1
+ * @Copyright: Copyright (c) 2019, Hand
+ */
 import React from 'react';
 import { connect } from 'dva';
 import styles from './IndexPage.css';
+import { Spin } from 'antd'
 
 @connect(({ example, loading }) => ({
   example,
+  loading: !!loading.effects['example/deleteBtn']
 }))
 export default class IndexPage extends React.Component {
 
@@ -31,12 +41,11 @@ export default class IndexPage extends React.Component {
   }
 
   renderBtn(btnList) {
-    console.log('render', btnList)
     return (
       btnList.map((item, index) => (
         <React.Fragment>
-          <li>{item}</li>
-          <button onClick={() => this.deleteBtn(index)} >删除</button>
+            <li>{item}</li>
+            <button onClick={() => this.deleteBtn(index)} >删除</button>
         </React.Fragment>
       )
       )
@@ -46,17 +55,20 @@ export default class IndexPage extends React.Component {
 
   render() {
     const { btnList } = this.props.example;
-    console.log(btnList);
+    const { loading } = this.props
+    console.log(loading, '===');
     return (
       <div className={styles.normal}>
         <h1 className={styles.title}>Yay! Welcome to dva!</h1>
         <div className={styles.welcome} />
         <button onClick={() => this.add()}>add</button>
-        <ul className={styles.list}>
-          {
-            this.renderBtn(btnList)
-          }
-        </ul>
+        <Spin spinning={loading}>
+          <ul className={styles.list}>
+            {
+              this.renderBtn(btnList)
+            }
+          </ul>
+        </Spin>
       </div>
     )
   }
@@ -66,3 +78,5 @@ export default class IndexPage extends React.Component {
 //将刚刚定义的model与该组件关联起来
 //                           namespace                     组件导出名称  
 // export default connect(({ example }) => ({ example }))(IndexPage);
+
+

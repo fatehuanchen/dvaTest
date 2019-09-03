@@ -1,3 +1,11 @@
+/*
+ * @Date: 1985-10-26 16:15:00
+ * @LastEditors: 
+ * @LastEditTime: 2019-09-02 19:48:12
+ * @Author: wengui.zhang@hand-china.com
+ * @Version: 0.0.1
+ * @Copyright: Copyright (c) 2019, Hand
+ */
 import { deleteBtn } from '../services/example'
 export default {
 
@@ -34,8 +42,8 @@ export default {
       return { ...state, ...action.payload };
     },
     editBtn(state){
-      state.btnList = ['按钮1', '按钮2', '按钮3'];
-      return {...state};
+      const btnList = ['按钮1', '按钮2', '按钮3'];
+      return {...state, btnList};
     }
   },
 
