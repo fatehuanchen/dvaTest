@@ -1,7 +1,7 @@
 /*
  * @Date: 1985-10-26 16:15:00
  * @LastEditors: 
- * @LastEditTime: 2019-09-03 10:31:06
+ * @LastEditTime: 2019-09-04 14:23:19
  * @Author: wengui.zhang@hand-china.com
  * @Version: 0.0.1
  * @Copyright: Copyright (c) 2019, Hand
@@ -64,6 +64,30 @@ app.start('#root');
         ],  // 返回 Promise数组函数，Promise 返回 dva model
         components: ()=> import('./router'),   // 返回 Promise函数，Promise 返回 React Component
     })
+
+    
+    import React from 'react'
+    import { Router, Route, Switch } from 'dva/router'
+    import dynamic from 'dva/dynamic'
+
+    export default function RouterConfig({ history, app }) {
+        const IndexPage = dynamic({
+            app,
+            component: () => import('./routes/IndexPage')
+        })
+        const Category = dynamic({
+            app,
+            component: () => import('./routes/Category')
+        })
+        return (
+            <Router history={history}>
+                <Switch>
+                    <Route path="/" exact component={IndexPage} />
+                    <Route path="/category" exact component={Category} />
+                </Switch>
+            </Router>
+        )
+    }
 
     */
 
